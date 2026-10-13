@@ -1,0 +1,67 @@
+# Data
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# Models and artifacts
+models/*
+!models/.gitkeep
+artifacts/
+*.pkl
+*.joblib
+*.lgb
+*.txt.bak
+
+# Reports generated at runtime (keep directory markers)
+reports/figures/*
+!reports/figures/.gitkeep
+reports/metrics.json
+reports/data_quality_report.md
+reports/model_card.md
+reports/drift_report.md
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Local / private tooling (do not publish)
+.cursor/
+system_prompt.md
+.agent/
+agent-transcripts/
+
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+credentials.json
+kaggle.json
+
+# MLflow local store
+mlruns/
+mlartifacts/
