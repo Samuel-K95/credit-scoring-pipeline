@@ -48,11 +48,10 @@ Thumbs.db
 .vscode/
 *.swp
 
-# Local / private tooling (do not publish)
+# Local editor / private notes (do not publish)
 .cursor/
 system_prompt.md
 .agent/
-agent-transcripts/
 
 # Secrets and credentials
 .env
