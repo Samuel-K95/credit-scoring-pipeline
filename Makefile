@@ -4,12 +4,13 @@
 PYTHON ?= python
 PIP ?= pip
 
-.PHONY: help install data features train evaluate monitor serve test lint clean
+.PHONY: help install data quality features train evaluate monitor serve test lint clean
 
 help:
 	@echo "Targets:"
 	@echo "  install   Install Python dependencies"
-	@echo "  data      Placeholder for raw data checks / download notes"
+	@echo "  data      Download/unzip Home Credit raw tables into data/raw"
+	@echo "  quality   Run data quality cleaning and write reports/data_quality_report.md"
 	@echo "  features  Build training features via DuckDB SQL"
 	@echo "  train     Train scorecard and LightGBM models"
 	@echo "  evaluate  Compute metrics and write reports/metrics.json"
@@ -23,7 +24,10 @@ install:
 	$(PIP) install -r requirements.txt
 
 data:
-	$(PYTHON) -c "from pathlib import Path; from src.config import RAW_DATA_DIR, RAW_TABLE_FILES; missing=[f for f in RAW_TABLE_FILES if not (RAW_DATA_DIR/f).exists()]; print('Raw data dir:', RAW_DATA_DIR); print('Missing tables:', missing if missing else 'none')"
+	$(PYTHON) -m src.download_data
+
+quality:
+	$(PYTHON) -m src.data_quality
 
 features:
 	$(PYTHON) -m src.build_features

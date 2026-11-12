@@ -27,6 +27,15 @@ DATA_QUALITY_REPORT_PATH: Path = REPORTS_DIR / "data_quality_report.md"
 MODEL_CARD_PATH: Path = REPORTS_DIR / "model_card.md"
 DRIFT_REPORT_PATH: Path = REPORTS_DIR / "drift_report.md"
 
+APPLICATION_CLEAN_PATH: Path = PROCESSED_DATA_DIR / "application_train_clean.parquet"
+BUREAU_CLEAN_PATH: Path = PROCESSED_DATA_DIR / "bureau_clean.parquet"
+PREVIOUS_APP_CLEAN_PATH: Path = PROCESSED_DATA_DIR / "previous_application_clean.parquet"
+APPLICATION_DECISIONS_PATH: Path = PROCESSED_DATA_DIR / "application_cleaning_decisions.json"
+CHILD_DECISIONS_PATH: Path = PROCESSED_DATA_DIR / "child_tables_cleaning_decisions.json"
+
+KAGGLE_COMPETITION: str = "home-credit-default-risk"
+CSV_CHUNKSIZE: int = 500_000
+
 # ---------------------------------------------------------------------------
 # Reproducibility
 # ---------------------------------------------------------------------------
