@@ -16,10 +16,9 @@ not telecom or mobile-money transaction data.
 
 ## Status
 
-Scaffold and project layout are in place. Pipeline stages (data quality,
-features, training, evaluation, monitoring, API) will be filled in as work
-progresses. Reported metrics will come only from `reports/metrics.json` after
-models are actually trained.
+Stages 1-4 are implemented (download, data quality, DuckDB features,
+preprocess/splits). Modelling and later stages are next. Reported metrics will
+come only from `reports/metrics.json` after models are actually trained.
 
 ## Repository layout
 
@@ -31,7 +30,18 @@ models are actually trained.
 |-- notebooks/           Exploratory analysis
 |-- reports/             Metrics, figures, model card
 |-- sql/                 DuckDB feature SQL
-|-- src/                 Pipeline modules
+|-- src/
+|   |-- config.py        Paths and shared constants
+|   |-- io_utils.py      Shared JSON / CSV helpers
+|   |-- download_data.py
+|   |-- data_quality/    Cleaning rules + DQ report
+|   |-- features/        DuckDB SQL feature build
+|   |-- preprocess/      Stratified splits + impute/cap pipeline
+|   |-- train.py         (Stage 5)
+|   |-- evaluate.py      (Stage 6)
+|   |-- explain.py       (Stage 7)
+|   |-- monitor.py       (Stage 8)
+|   |-- scoring.py       Scorecard helpers
 |-- tests/
 |-- Dockerfile
 |-- Makefile

@@ -31,7 +31,7 @@ quality:
 	$(PYTHON) -m src.data_quality
 
 features:
-	$(PYTHON) -m src.build_features
+	$(PYTHON) -m src.features
 
 preprocess:
 	$(PYTHON) -m src.preprocess
