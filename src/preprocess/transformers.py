@@ -17,10 +17,13 @@ class MissingIndicatorAdder(BaseEstimator, TransformerMixin):
     """Add binary missing flags for selected columns; keep original NaNs."""
 
     def __init__(self, columns: list[str] | tuple[str, ...] | None = None):
-        self.columns = list(columns) if columns is not None else list(HIGH_SIGNAL_MISSING)
+        # Store the argument unchanged so the estimator is clone-safe
+        # (sklearn requires __init__ not to modify its parameters).
+        self.columns = columns
 
     def fit(self, X: pd.DataFrame, y: Any = None) -> MissingIndicatorAdder:
-        self.columns_ = [c for c in self.columns if c in X.columns]
+        cols = list(self.columns) if self.columns is not None else list(HIGH_SIGNAL_MISSING)
+        self.columns_ = [c for c in cols if c in X.columns]
         return self
 
     def transform(self, X: pd.DataFrame) -> pd.DataFrame:

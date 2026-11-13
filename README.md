@@ -17,8 +17,26 @@ not telecom or mobile-money transaction data.
 ## Status
 
 Stages 1-4 are implemented (download, data quality, DuckDB features,
-preprocess/splits). Modelling and later stages are next. Reported metrics will
-come only from `reports/metrics.json` after models are actually trained.
+preprocess/splits). Stage 5 modelling is under way: notebooks 06-09 explore
+linear, tree, bagging-ensemble, and boosting models with a shared
+`src.modeling` toolkit (reusable training, GridSearchCV tuning, and train vs
+validation curves). The final champion will be ported to `src/train.py`.
+Reported metrics will come only from `reports/metrics.json` after the pipeline
+trains the chosen model.
+
+## Modelling notebooks (Stage 5)
+
+| Notebook | Family | Models |
+| --- | --- | --- |
+| `06_linear_models.ipynb` | Linear | Logistic regression (scorecard base) |
+| `07_tree_models.ipynb` | Tree | Decision tree (CART) |
+| `08_ensemble_models.ipynb` | Ensemble (bagging) | Random forest, extra trees |
+| `09_boosting_models.ipynb` | Boosting | XGBoost, LightGBM, CatBoost, GradientBoosting |
+
+Each notebook tunes with `GridSearchCV` over the saved stratified folds, plots
+validation/learning curves and train-vs-validation loss curves, and evaluates
+the selected model once on the untouched holdout. Preprocessing is refit inside
+every fold via `src.modeling.make_pipeline`, so there is no leakage.
 
 ## Repository layout
 
@@ -37,6 +55,7 @@ come only from `reports/metrics.json` after models are actually trained.
 |   |-- data_quality/    Cleaning rules + DQ report
 |   |-- features/        DuckDB SQL feature build
 |   |-- preprocess/      Stratified splits + impute/cap pipeline
+|   |-- modeling/        Stage 5 toolkit (data, metrics, plots, search, curves)
 |   |-- train.py         (Stage 5)
 |   |-- evaluate.py      (Stage 6)
 |   |-- explain.py       (Stage 7)
