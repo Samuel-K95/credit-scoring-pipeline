@@ -68,14 +68,35 @@ Expected files under `data/raw/`:
 ## Pipeline commands
 
 ```bash
-make data        # check raw tables are present
-make features    # DuckDB SQL feature build
+make data        # download/unzip Home Credit raw tables
+make quality     # data quality cleaning + reports/data_quality_report.md
+make features    # DuckDB SQL feature build -> train_features.parquet
 make train       # scorecard + LightGBM
 make evaluate    # metrics -> reports/metrics.json
 make monitor     # PSI / CSI drift report
 make serve       # FastAPI on :8000
 make test
 ```
+
+## Feature data dictionary
+
+One row per `SK_ID_CURR` in `data/processed/train_features.parquet`. Columns are
+prefixed by source. All child aggregates use only relative offsets available at
+application time (negative day/month offsets); see `sql/*.sql` and
+`tests/test_feature_sql_leakage.py`.
+
+| Prefix | Source | Example features |
+| --- | --- | --- |
+| `app_` | application_train | credit/income, annuity/income, credit/goods ratios; age and employment years; external scores; income, credit, annuity amounts |
+| `inst_` | installments_payments | payment count, days-past-due mean/max, late rate, underpayment share, payment ratio, late-rate trend over last 3/6/12 months |
+| `bur_` | bureau (+ bureau_balance) | active/closed credit counts, overdue amounts, max days overdue, utilisation, credit-history length, monthly DPD share |
+| `prev_` | previous_application | approval/refusal rates, days since last application, mean requested vs approved amount |
+| `pos_` | POS_CASH_balance | months observed, DPD mean/max, delinquency count, future-instalment trend |
+| `cc_` | credit_card_balance | months observed, utilisation mean/max, max DPD, mean drawings, balance trend |
+
+`TARGET` is the label (1 = payment difficulties). Count-style columns are 0 when
+an applicant has no history in that source; other aggregates are NaN and imputed
+in the preprocessing stage (fit on training folds only).
 
 ## Known dataset limitation
 
