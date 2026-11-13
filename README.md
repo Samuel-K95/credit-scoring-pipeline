@@ -71,6 +71,7 @@ Expected files under `data/raw/`:
 make data        # download/unzip Home Credit raw tables
 make quality     # data quality cleaning + reports/data_quality_report.md
 make features    # DuckDB SQL feature build -> train_features.parquet
+make preprocess  # stratified splits + train-only impute/cap pipeline
 make train       # scorecard + LightGBM
 make evaluate    # metrics -> reports/metrics.json
 make monitor     # PSI / CSI drift report

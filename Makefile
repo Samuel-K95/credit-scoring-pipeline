@@ -4,15 +4,16 @@
 PYTHON ?= python
 PIP ?= pip
 
-.PHONY: help install data quality features train evaluate monitor serve test lint clean
+.PHONY: help install data quality features preprocess train evaluate monitor serve test lint clean
 
 help:
 	@echo "Targets:"
-	@echo "  install   Install Python dependencies"
-	@echo "  data      Download/unzip Home Credit raw tables into data/raw"
-	@echo "  quality   Run data quality cleaning and write reports/data_quality_report.md"
-	@echo "  features  Build training features via DuckDB SQL"
-	@echo "  train     Train scorecard and LightGBM models"
+	@echo "  install    Install Python dependencies"
+	@echo "  data       Download/unzip Home Credit raw tables into data/raw"
+	@echo "  quality    Run data quality cleaning and write reports/data_quality_report.md"
+	@echo "  features   Build training features via DuckDB SQL"
+	@echo "  preprocess Stratified splits + train-only impute/cap pipeline"
+	@echo "  train      Train scorecard and LightGBM models"
 	@echo "  evaluate  Compute metrics and write reports/metrics.json"
 	@echo "  monitor   Run PSI/CSI drift checks"
 	@echo "  serve     Start FastAPI scoring service"
@@ -31,6 +32,9 @@ quality:
 
 features:
 	$(PYTHON) -m src.build_features
+
+preprocess:
+	$(PYTHON) -m src.preprocess
 
 train:
 	$(PYTHON) -m src.train
