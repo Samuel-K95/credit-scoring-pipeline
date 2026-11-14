@@ -28,6 +28,7 @@ DATA_QUALITY_REPORT_PATH: Path = REPORTS_DIR / "data_quality_report.md"
 MODEL_CARD_PATH: Path = REPORTS_DIR / "model_card.md"
 EXPLAINABILITY_REPORT_PATH: Path = REPORTS_DIR / "explainability.md"
 DRIFT_REPORT_PATH: Path = REPORTS_DIR / "drift_report.md"
+DRIFT_JSON_PATH: Path = REPORTS_DIR / "drift.json"
 
 APPLICATION_CLEAN_PATH: Path = PROCESSED_DATA_DIR / "application_train_clean.parquet"
 BUREAU_CLEAN_PATH: Path = PROCESSED_DATA_DIR / "bureau_clean.parquet"
@@ -95,6 +96,13 @@ N_CV_FOLDS: int = 5
 
 SCORECARD_BASE_SCORE: int = 600
 SCORECARD_PDO: int = 50  # points to double the odds
+# Risk score is anchored so odds of 1:1 (model output 0.5) map to BASE_SCORE;
+# higher scores mean lower risk. See src/scoring.py for the scaling.
+
+# Decision bands expressed as fractions of the tuned decline threshold.
+# score below APPROVE_FRACTION * threshold -> approve, at/above threshold ->
+# decline, in between -> refer for manual review.
+BAND_APPROVE_FRACTION: float = 0.6
 
 MODEL_VERSION: str = "0.1.0"
 
