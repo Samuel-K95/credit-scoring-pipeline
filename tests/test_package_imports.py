@@ -81,6 +81,26 @@ def test_modeling_submodules_import() -> None:
     assert callable(boosting.fit_xgb_curve)
 
 
+def test_champions_and_registry() -> None:
+    from src.modeling import (
+        build_all_champions,
+        champion_names,
+        has_model,
+        list_models,
+        load_model,
+        save_model,
+    )
+
+    names = champion_names()
+    assert {"logistic_regression", "random_forest", "xgboost", "catboost"} <= set(names)
+    champs = build_all_champions(pos_weight=10.0)
+    assert set(champs) == set(names)
+    for est in champs.values():
+        assert hasattr(est, "fit")
+    for fn in (has_model, list_models, load_model, save_model):
+        assert callable(fn)
+
+
 def test_classification_metrics_values() -> None:
     import numpy as np
 

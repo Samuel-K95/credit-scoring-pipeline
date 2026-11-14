@@ -32,11 +32,18 @@ trains the chosen model.
 | `07_tree_models.ipynb` | Tree | Decision tree (CART) |
 | `08_ensemble_models.ipynb` | Ensemble (bagging) | Random forest, extra trees |
 | `09_boosting_models.ipynb` | Boosting | XGBoost, LightGBM, CatBoost, GradientBoosting |
+| `10_model_comparison.ipynb` | Comparison | Loads every family champion, compares on holdout, picks the best |
 
 Each notebook tunes with `GridSearchCV` over the saved stratified folds, plots
 validation/learning curves and train-vs-validation loss curves, and evaluates
 the selected model once on the untouched holdout. Preprocessing is refit inside
 every fold via `src.modeling.make_pipeline`, so there is no leakage.
+
+The tuned winners are captured in `src.modeling.champions`; notebook 10 trains
+them on the full training data (cached in `models/` via `src.modeling.registry`),
+compares them on the holdout, and selects the champion
+(`reports/model_comparison.json`). The official `reports/metrics.json` is still
+produced by the runnable pipeline in Stage 6.
 
 ## Repository layout
 
