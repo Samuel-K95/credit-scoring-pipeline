@@ -7,6 +7,15 @@ from src.modeling.champions import (
     champion_names,
 )
 from src.modeling.data import ModelingData, load_modeling_data, subsample
+from src.modeling.explain import (
+    ShapResult,
+    compute_shap,
+    plot_beeswarm,
+    plot_dependence,
+    plot_global_bar,
+    plot_waterfall,
+    transform_features,
+)
 from src.modeling.metrics import (
     classification_metrics,
     ks_statistic,
@@ -31,7 +40,14 @@ from src.modeling.search import (
 
 __all__ = [
     "ModelingData",
+    "ShapResult",
     "SEARCH_CV_AUC",
+    "compute_shap",
+    "plot_beeswarm",
+    "plot_dependence",
+    "plot_global_bar",
+    "plot_waterfall",
+    "transform_features",
     "build_all_champions",
     "build_champion",
     "champion_names",

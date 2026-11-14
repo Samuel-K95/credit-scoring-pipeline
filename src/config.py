@@ -26,6 +26,7 @@ METRICS_PATH: Path = REPORTS_DIR / "metrics.json"
 MODEL_COMPARISON_PATH: Path = REPORTS_DIR / "model_comparison.json"
 DATA_QUALITY_REPORT_PATH: Path = REPORTS_DIR / "data_quality_report.md"
 MODEL_CARD_PATH: Path = REPORTS_DIR / "model_card.md"
+EXPLAINABILITY_REPORT_PATH: Path = REPORTS_DIR / "explainability.md"
 DRIFT_REPORT_PATH: Path = REPORTS_DIR / "drift_report.md"
 
 APPLICATION_CLEAN_PATH: Path = PROCESSED_DATA_DIR / "application_train_clean.parquet"

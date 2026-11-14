@@ -20,6 +20,7 @@ reports/metrics.json
 reports/model_comparison.json
 reports/data_quality_report.md
 reports/model_card.md
+reports/explainability.md
 reports/drift_report.md
 
 # Python

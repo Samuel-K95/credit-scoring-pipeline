@@ -4,7 +4,7 @@
 PYTHON ?= python
 PIP ?= pip
 
-.PHONY: help install data quality features preprocess train evaluate monitor serve test lint clean
+.PHONY: help install data quality features preprocess train evaluate explain monitor serve test lint clean
 
 help:
 	@echo "Targets:"
@@ -15,6 +15,7 @@ help:
 	@echo "  preprocess Stratified splits + train-only impute/cap pipeline"
 	@echo "  train      Train the champion model on the full training split"
 	@echo "  evaluate  Compute metrics and write reports/metrics.json"
+	@echo "  explain   SHAP global/local explanations into reports/"
 	@echo "  monitor   Run PSI/CSI drift checks"
 	@echo "  serve     Start FastAPI scoring service"
 	@echo "  test      Run pytest"
@@ -41,6 +42,9 @@ train:
 
 evaluate:
 	$(PYTHON) -m src.evaluate
+
+explain:
+	$(PYTHON) -m src.explain
 
 monitor:
 	$(PYTHON) -m src.monitor

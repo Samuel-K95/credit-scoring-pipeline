@@ -101,6 +101,44 @@ def test_champions_and_registry() -> None:
         assert callable(fn)
 
 
+def test_explain_exports_and_shap_reconstruction() -> None:
+    import numpy as np
+    import pandas as pd
+    from sklearn.pipeline import Pipeline
+    from sklearn.preprocessing import FunctionTransformer
+
+    try:
+        from lightgbm import LGBMClassifier
+    except ImportError:
+        import pytest
+
+        pytest.skip("lightgbm not installed")
+
+    from src.modeling import compute_shap, plot_global_bar, transform_features
+
+    for fn in (compute_shap, plot_global_bar, transform_features):
+        assert callable(fn)
+
+    rng = np.random.default_rng(0)
+    X = pd.DataFrame(rng.normal(size=(200, 4)), columns=list("abcd"))
+    y = (X["a"] + X["b"] > 0).astype(int)
+    pipe = Pipeline(
+        [
+            ("preprocess", FunctionTransformer()),
+            ("model", LGBMClassifier(n_estimators=30, num_leaves=7, verbose=-1)),
+        ]
+    )
+    pipe.fit(X, y)
+
+    result = compute_shap(pipe, X)
+    assert result.values.shape == X.shape
+    margin = result.values.sum(axis=1).to_numpy() + result.base_value
+    recon = 1.0 / (1.0 + np.exp(-margin))
+    proba = pipe.predict_proba(X)[:, 1]
+    assert np.max(np.abs(recon - proba)) < 1e-6
+    assert len(result.global_importance()) == X.shape[1]
+
+
 def test_classification_metrics_values() -> None:
     import numpy as np
 
