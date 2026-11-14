@@ -13,7 +13,7 @@ help:
 	@echo "  quality    Run data quality cleaning and write reports/data_quality_report.md"
 	@echo "  features   Build training features via DuckDB SQL"
 	@echo "  preprocess Stratified splits + train-only impute/cap pipeline"
-	@echo "  train      Train scorecard and LightGBM models"
+	@echo "  train      Train the champion model on the full training split"
 	@echo "  evaluate  Compute metrics and write reports/metrics.json"
 	@echo "  monitor   Run PSI/CSI drift checks"
 	@echo "  serve     Start FastAPI scoring service"
