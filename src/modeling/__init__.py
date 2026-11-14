@@ -18,6 +18,8 @@ from src.modeling.explain import (
 )
 from src.modeling.metrics import (
     classification_metrics,
+    cutoff_table,
+    grouped_discrimination,
     ks_statistic,
     metrics_frame,
 )
@@ -52,6 +54,8 @@ __all__ = [
     "build_champion",
     "champion_names",
     "classification_metrics",
+    "cutoff_table",
+    "grouped_discrimination",
     "cv_results_frame",
     "evaluate_split",
     "has_model",
