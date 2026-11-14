@@ -22,6 +22,7 @@ reports/data_quality_report.md
 reports/model_card.md
 reports/explainability.md
 reports/drift_report.md
+reports/drift.json
 
 # Python
 __pycache__/
